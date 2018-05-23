@@ -3,7 +3,6 @@ package com.example.demo.controllers;
 import com.example.demo.domain.Product;
 import com.example.demo.services.ProductService;
 import com.example.demo.services.TokenService;
-import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -52,13 +51,12 @@ public class ProductController {
 
     @ApiOperation(value = "Create product", notes = "Some notes")
     @PostMapping
-    @ApiImplicitParam(name = "token", dataType = "string", paramType = "header", required = true)
-    public ResponseEntity<?> add(@Valid @RequestBody Product product, @RequestHeader("token") String token) {
+    public ResponseEntity<?> add(@Valid @RequestBody Product product) {
 
-        Claims claims = tokenService.parseToken(token);
-        if (claims == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+//        Claims claims = tokenService.parseToken(token);
+//        if (claims == null) {
+//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//        }
         productService.add(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

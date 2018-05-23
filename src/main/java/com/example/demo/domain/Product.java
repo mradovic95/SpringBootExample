@@ -1,35 +1,47 @@
 package com.example.demo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int productId;
     @NotNull
     private String title;
     @NotNull
     private String description;
     @Min(1)
     private int price;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "products")
+    private List<User> users = new ArrayList<>();
 
     public Product() {
 
     }
 
-    public int getId() {
-        return id;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getTitle() {
