@@ -38,4 +38,11 @@ public class CrudService<T, ID, R extends JpaRepository<T, ID>> {
         repository.save(entity);
     }
 
+    public R getRepository() {
+        return repository;
+    }
+
+    public void setRepository(R repository) {
+        this.repository = repository;
+    }
 }

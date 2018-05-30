@@ -45,7 +45,7 @@ public class ProductController {
 
     @ApiOperation(value = "Get single Product by id", notes = "Some notes")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Product> getById(@PathVariable Integer id) {
+    public ResponseEntity<Product> getById(@PathVariable int id) {
         return new ResponseEntity<>(productService.getById(id), HttpStatus.OK);
     }
 
@@ -53,13 +53,10 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<?> add(@Valid @RequestBody Product product) {
 
-//        Claims claims = tokenService.parseToken(token);
-//        if (claims == null) {
-//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//        }
         productService.add(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
     @ApiOperation(value = "Delete product", notes = "Some notes")
     @DeleteMapping(value = "/{id}")
@@ -73,5 +70,13 @@ public class ProductController {
     public ResponseEntity<?> update(@RequestBody Product product) {
         productService.update(product);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Create product", notes = "Some notes")
+    @GetMapping(value = "/{id}/buy")
+    public ResponseEntity<?> buy(@PathVariable int id, @RequestParam int count) {
+
+        productService.buyProduct(id, count);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
